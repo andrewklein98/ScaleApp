@@ -4,5 +4,9 @@
         <item>Major</item>
         <item>Minor</item>
         <item>Lydian</item>
+        <item>Mixolydian</item>
+        <item>Dorian</item>
+        <item>Phrygian</item>
+        <item>Locrian</item>
     </string-array>
 </resources>

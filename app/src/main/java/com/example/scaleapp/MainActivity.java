@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int numScales;
     EditText trueFalseText;
     EditText scaleText;
+    ArrayList<String> modes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
     public void startPractice(View view) {
         //opens the practice activity as an intent
         numScales =getNumScalesFromBox();
+        modes = getModesFromBox();
         Intent intent = new Intent(this, PracticingActivity.class);
         intent.putExtra("metronomeOn", useMetronome);
         intent.putExtra("numScales", numScales);
-
+        intent.putExtra("modes",modes);
         startActivity(intent);
     }
 
@@ -74,5 +76,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
              return Integer.parseInt(scaleText.getText().toString());
         }
+    }
+    public ArrayList<String> getModesFromBox(){
+        //currently just gets the modes from a list, not the box
+        ArrayList<String> holder = new ArrayList<String>();
+        holder.add("Lydian");
+        holder.add("major");
+        return holder;
     }
 }

@@ -16,6 +16,7 @@ public class PracticingActivity extends AppCompatActivity {
     TextView tonicBox;
     ListGenerator listGen;
     ArrayList<String> tonics;
+    ArrayList<String> modes;
     int scaleIndex =0;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -40,8 +41,9 @@ public class PracticingActivity extends AppCompatActivity {
             }
             numScales = bundle.getInt("numScales");
             scaleBox.setText(String.valueOf(numScales));
+            modes = bundle.getStringArrayList("modes");
         }
-        tonics = listGen.genSingleMode(getBaseContext(),numScales);
+        tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
         tonicBox.setText(tonics.get(scaleIndex));
 
     }
