@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ScaleApp</string>
+    <string name="metronomeOn">metronome on</string>
+    <string name="metronomeOff">metronome off</string>
+</resources>
