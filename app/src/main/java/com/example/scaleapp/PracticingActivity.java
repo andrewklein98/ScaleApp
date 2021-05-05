@@ -6,12 +6,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.scaleapp.GlobalVariables;
 
 import java.util.ArrayList;
 
 public class PracticingActivity extends AppCompatActivity {
-    GlobalVariables globVar;
     int numScales;
     TextView scaleBox;
     TextView tonicBox;
@@ -23,8 +21,7 @@ public class PracticingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practicing);
         listGen = new ListGenerator();
-        tonics = listGen.genSingleMode();
-        globVar = GlobalVariables.getInstance();
+        tonics = listGen.genSingleMode(getBaseContext());
         //gets the text box for the metronome field
         EditText metBox = (EditText) findViewById(R.id.textEdit);
         tonicBox = (TextView) findViewById(R.id.tonicBox);

@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     Button metButton;
     boolean useMetronome = false;
     int numScales;
-    GlobalVariables globVar;
     EditText trueFalseText;
     EditText scaleText;
 

@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".PracticingActivity">
         </activity>
-        <activity android:name=".Context"/>
     </application>
 
 </manifest>
