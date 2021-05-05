@@ -1,5 +1,6 @@
 package com.example.scaleapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,7 +22,7 @@ public class PracticingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practicing);
         listGen = new ListGenerator();
-        tonics = listGen.genSingleMode(getBaseContext());
+
         //gets the text box for the metronome field
         EditText metBox = (EditText) findViewById(R.id.textEdit);
         tonicBox = (TextView) findViewById(R.id.tonicBox);
@@ -40,14 +41,19 @@ public class PracticingActivity extends AppCompatActivity {
             numScales = bundle.getInt("numScales");
             scaleBox.setText(String.valueOf(numScales));
         }
+        tonics = listGen.genSingleMode(getBaseContext(),numScales);
         tonicBox.setText(tonics.get(scaleIndex));
 
     }
     public void clickNextScale(View view){
         numScales -=1;
         scaleIndex+=1;
-        tonicBox.setText(tonics.get(scaleIndex));
-        scaleBox.setText(String.valueOf(numScales));
+        if(numScales==0){
+            finish();
+        }else{
+            tonicBox.setText(tonics.get(scaleIndex));
+            scaleBox.setText(String.valueOf(numScales));
+        }
     }
 
 

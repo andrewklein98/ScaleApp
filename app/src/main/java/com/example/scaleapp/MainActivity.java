@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         spin.setAdapter(adapter);
         //gets the button for the metronome on off
         metButton = (Button) findViewById(R.id.button);
-        //sets a text watcher on the number of scales
-        scaleText.addTextChangedListener(filterTextWatcher);
     }
 
     //on click for the use metronome button
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     //the on click for the start practice button
     public void startPractice(View view) {
         //opens the practice activity as an intent
+        numScales =getNumScalesFromBox();
         Intent intent = new Intent(this, PracticingActivity.class);
         intent.putExtra("metronomeOn", useMetronome);
         intent.putExtra("numScales", numScales);
@@ -66,21 +66,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private TextWatcher filterTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    public int getNumScalesFromBox() {
+        if (scaleText.getText().toString() == "") {
+            //something that will stop the user from breaking everything
+            //that will have to be in the startPractice box
+            return 12;
+        } else {
+             return Integer.parseInt(scaleText.getText().toString());
         }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            numScales = Integer.parseInt(scaleText.getText().toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-
+    }
 }
