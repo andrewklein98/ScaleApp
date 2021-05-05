@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int getNumScalesFromBox() {
-        if (scaleText.getText().toString() == "") {
+        if (scaleText.getText().toString().equals("")) {
             //something that will stop the user from breaking everything
             //that will have to be in the startPractice box
             return 12;

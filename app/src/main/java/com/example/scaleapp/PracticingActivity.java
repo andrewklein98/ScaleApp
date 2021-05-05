@@ -24,7 +24,7 @@ public class PracticingActivity extends AppCompatActivity {
         listGen = new ListGenerator();
 
         //gets the text box for the metronome field
-        EditText metBox = (EditText) findViewById(R.id.textEdit);
+        EditText metBox = (EditText) findViewById(R.id.metronomeBox);
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
         scaleBox= (TextView) findViewById(R.id.numScaleText);
@@ -48,11 +48,13 @@ public class PracticingActivity extends AppCompatActivity {
     public void clickNextScale(View view){
         numScales -=1;
         scaleIndex+=1;
+        //checks the number of scales that are left if none, ends the activity
         if(numScales==0){
             finish();
         }else{
+            //sets the text of the boxes to be the next scale
             tonicBox.setText(tonics.get(scaleIndex));
-            scaleBox.setText(String.valueOf(numScales));
+            scaleBox.setText("Scales Remaining: "+ String.valueOf(numScales));
         }
     }
 
