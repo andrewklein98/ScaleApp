@@ -18,6 +18,8 @@ public class PracticingActivity extends AppCompatActivity {
     ArrayList<String> tonics;
     ArrayList<String> modes;
     int scaleIndex =0;
+    boolean metronome;
+    boolean endless;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,8 +34,8 @@ public class PracticingActivity extends AppCompatActivity {
         //gets the values that we passed into the activity when it was created
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            boolean useMetronome = bundle.getBoolean("metronomeOn");
-            if(useMetronome){
+            metronome = bundle.getBoolean("metronomeOn");
+            if(metronome){
                 metBox.setText("Metronome On");
             }
             else {
@@ -43,7 +45,13 @@ public class PracticingActivity extends AppCompatActivity {
             scaleBox.setText(String.valueOf(numScales));
             modes = bundle.getStringArrayList("modes");
         }
-        tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+        if(modes.size()==1) {
+            tonics = listGen.genSingleMode(getBaseContext() ,numScales);
+        }
+        else{
+            tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+        }
+
         tonicBox.setText(tonics.get(scaleIndex));
 
     }

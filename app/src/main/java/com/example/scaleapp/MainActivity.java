@@ -27,9 +27,10 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
 
     Button metButton;
     Button modeButton;
+    Button endButton;
     boolean useMetronome = false;
+    boolean useEndless = false;
     int numScales;
-    EditText trueFalseText;
     EditText scaleText;
     public static final int REQUEST_CODE =1;
     ArrayList<String> modes;
@@ -40,16 +41,12 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         setContentView(R.layout.activity_main);
         //gets the Edit Text for the number of scales
         scaleText = (EditText) findViewById(R.id.nScales);
-        //sets up the dropdown(spinner) with the values from the mode array
-        Spinner spin = (Spinner) findViewById(R.id.modespinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.mode_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
         //gets the button for the metronome on off
         metButton = (Button) findViewById(R.id.button);
         //creates the button to pick modes
         modeButton = (Button) findViewById(R.id.modeButton);
+        //creates the button for endless mode
+        endButton = findViewById(R.id.buttonEndless);
     }
 
     //on click for the use metronome button
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         intent.putExtra("metronomeOn", useMetronome);
         intent.putExtra("numScales", numScales);
         intent.putExtra("modes",modes);
+        intent.putExtra("endless",useEndless);
         startActivity(intent);
     }
 
@@ -103,5 +101,17 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     @Override
     public void sendModes(ArrayList<String> sent) {
         modes = sent;
+    }
+
+    public void endlessMode(View view) {
+        if (useEndless) {
+            useEndless = false;
+            endButton.setText("Endless On");
+
+        } else if (useEndless == false) {
+            useEndless = true;
+            endButton.setText("Endless Off");
+
+        }
     }
 }

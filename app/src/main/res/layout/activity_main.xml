@@ -4,69 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".MainActivity">
-
-
-
 
 
     <EditText
         android:id="@+id/nScales"
-        android:layout_width="383dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="116dp"
-        android:hint="How many scales do you want to practice?"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Spinner
-        android:id="@+id/modespinner"
-        android:layout_width="358dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_width="238dp"
+        android:layout_height="47dp"
         android:layout_marginTop="48dp"
-        android:hint="which modes are you going to use"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nScales" />
+        android:hint="number of scales to practice"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        tools:layout_editor_absoluteX="86dp" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="338dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="186dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="36dp"
         android:onClick="metronomeButton"
         android:text="Use Metronome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modespinner" />
+        app:layout_constraintTop_toBottomOf="@+id/modeButton"
+        tools:layout_editor_absoluteX="112dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginLeft="128dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="52dp"
         android:onClick="startPractice"
         android:text="StartPractice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="128dp" />
 
     <Button
         android:id="@+id/modeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginLeft="156dp"
-        android:layout_marginTop="140dp"
-        android:text="Button"
+        android:layout_marginTop="48dp"
         android:onClick="openModeDialog"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        android:text="Pick Modes"
+        app:layout_constraintTop_toBottomOf="@+id/nScales"
+        tools:layout_editor_absoluteX="143dp" />
+
+    <Button
+        android:id="@+id/buttonEndless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Endless Mode"
+        android:onClick="endlessMode"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:layout_editor_absoluteX="120dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
