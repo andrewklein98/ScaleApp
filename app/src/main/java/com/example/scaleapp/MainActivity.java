@@ -1,16 +1,22 @@
 package com.example.scaleapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -18,6 +24,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Button metButton;
+    Button modeButton;
     boolean useMetronome = false;
     int numScales;
     EditText trueFalseText;
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         spin.setAdapter(adapter);
         //gets the button for the metronome on off
         metButton = (Button) findViewById(R.id.button);
+        //creates the button to pick modes
+        modeButton = (Button) findViewById(R.id.modeButton);
     }
 
     //on click for the use metronome button
@@ -84,4 +93,11 @@ public class MainActivity extends AppCompatActivity {
         holder.add("major");
         return holder;
     }
+
+    public void openModeDialog(View view){
+        ModeDialog modeDialog = new ModeDialog();
+        modeDialog.show(getSupportFragmentManager(),"Pick Mode");
+    }
+
+
 }
