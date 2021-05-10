@@ -3,9 +3,6 @@
     <string name="metronomeOn">metronome on</string>
     <string name="metronomeOff">metronome off</string>
     <string name="mode_list">Mode list</string>
-    <string name="Major">Major</string>
-    <string name="Lydian">Lydian</string>
-    <string name="Mixolydian">Mixolydian</string>
     <string name="ok">Ok</string>
     <string name="cancel">cancel</string>
 </resources>

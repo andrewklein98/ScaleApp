@@ -3,6 +3,7 @@ package com.example.scaleapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,11 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDialogInterface {
 
     Button metButton;
     Button modeButton;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     int numScales;
     EditText trueFalseText;
     EditText scaleText;
+    public static final int REQUEST_CODE =1;
     ArrayList<String> modes;
 
     @Override
@@ -88,16 +91,17 @@ public class MainActivity extends AppCompatActivity {
     }
     public ArrayList<String> getModesFromBox(){
         //currently just gets the modes from a list, not the box
-        ArrayList<String> holder = new ArrayList<String>();
-        holder.add("Lydian");
-        holder.add("major");
-        return holder;
+        return modes;
     }
 
     public void openModeDialog(View view){
+
         ModeDialog modeDialog = new ModeDialog();
         modeDialog.show(getSupportFragmentManager(),"Pick Mode");
     }
 
-
+    @Override
+    public void sendModes(ArrayList<String> sent) {
+        modes = sent;
+    }
 }
