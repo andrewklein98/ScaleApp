@@ -11,13 +11,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class PracticingActivity extends AppCompatActivity {
-    int numScales;
+
     TextView scaleBox;
     TextView tonicBox;
+
     ListGenerator listGen;
+
     ArrayList<String> tonics;
     ArrayList<String> modes;
+
+    String lastScale;
+
+    int numScales;
     int scaleIndex =0;
+
     boolean metronome;
     boolean endless;
     @Override
@@ -34,30 +41,49 @@ public class PracticingActivity extends AppCompatActivity {
         //gets the values that we passed into the activity when it was created
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
+            //gets all the values passed in from the previous activity
             metronome = bundle.getBoolean("metronomeOn");
+            modes = bundle.getStringArrayList("modes");
+            endless = bundle.getBoolean("endless");
+            //checks if the metronome is on
             if(metronome){
                 metBox.setText("Metronome On");
             }
             else {
                 metBox.setText("Metronome Off");
             }
-            numScales = bundle.getInt("numScales");
-            scaleBox.setText(String.valueOf(numScales));
-            modes = bundle.getStringArrayList("modes");
-        }
-        if(modes.size()==1) {
-            tonics = listGen.genSingleMode(getBaseContext() ,numScales);
-        }
-        else{
-            tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+            //checks if endless mode is on, if so gets the numScales
+            if(!endless) {
+                numScales = bundle.getInt("numScales");
+                scaleBox.setText(String.valueOf(numScales));
+            }else{
+                scaleBox.setText("0 scales completed");
+            }
+            //checks number of modes and endless, then gens the list
+            if(modes==null &&!endless){
+                tonics = listGen.genNoModes(getBaseContext());
+            }
+            else if(modes==null && endless){
+                tonics = listGen.genNoModes(getBaseContext());
+            }
+            else if(modes.size()==1 && !endless) {
+                tonics = listGen.genSingleMode(getBaseContext() ,numScales);
+            }
+            else if(!endless){
+                tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+            }else{
+                tonics = listGen.genMultiMode(getBaseContext(),modes,24);
+                numScales=1;
+            }
+
         }
 
         tonicBox.setText(tonics.get(scaleIndex));
 
     }
-    public void clickNextScale(View view){
+
+    public void nonEndlessClick(){
         numScales -=1;
-        scaleIndex+=1;
         //checks the number of scales that are left if none, ends the activity
         if(numScales==0){
             finish();
@@ -65,6 +91,33 @@ public class PracticingActivity extends AppCompatActivity {
             //sets the text of the boxes to be the next scale
             tonicBox.setText(tonics.get(scaleIndex));
             scaleBox.setText("Scales Remaining: "+ String.valueOf(numScales));
+        }
+    }
+
+    public void endlessClick(){
+        //duplicate check
+        if(tonics.get(scaleIndex).equals(lastScale)){
+            scaleIndex++;
+        }
+        //sets the tonics box to be the text of the scale
+        tonicBox.setText(tonics.get(scaleIndex));
+        //checks whether the index is too big for the array, and if so resets to get a new array list
+        if(scaleIndex==tonics.size()-1){
+            tonics = listGen.genMultiMode(getBaseContext(),modes,24);
+            scaleIndex=0;
+        }
+        lastScale = tonics.get(scaleIndex);
+        scaleBox.setText(numScales+" scales completed");
+        numScales++;
+    }
+
+
+    public void clickNextScale(View view){
+        scaleIndex+=1;
+        if(!endless){
+            nonEndlessClick();
+        }else{
+            endlessClick();
         }
     }
 

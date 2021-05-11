@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
                 if(isChecked){
                     //endless is on and the text for number of scale is greyed out
                     endButton.setText("On");
-                    scaleText.setText("unavailable in endless mode");
+                    scaleText.setHint("unavailable in endless mode");
                     scaleText.setEnabled(false);
                     useEndless = true;
                 }
                 else{
                     endButton.setText("Off");
-                    scaleText.setText("number of scales to practice");
+                    scaleText.setHint("number of scales to practice");
                     scaleText.setEnabled(true);
                     useEndless=false;
                     //endless is off, and the text for number of scales is not greyed out
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     //the on click for the start practice button
     public void startPractice(View view) {
         //opens the practice activity as an intent
+        //first checks if the modes have been entered
         numScales =getNumScalesFromBox();
         modes = getModesFromBox();
         Intent intent = new Intent(this, PracticingActivity.class);
@@ -126,17 +127,5 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     @Override
     public void sendModes(ArrayList<String> sent) {
         modes = sent;
-    }
-
-    public void endlessMode(View view) {
-        if (useEndless) {
-            useEndless = false;
-            endButton.setText("Endless On");
-
-        } else if (useEndless == false) {
-            useEndless = true;
-            endButton.setText("Endless Off");
-
-        }
     }
 }

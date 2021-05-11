@@ -12,14 +12,18 @@ public class ListGenerator {
     public String[] getTonicArray(Context context){
         return context.getResources().getStringArray(R.array.TonicArray);
     }
+    public ArrayList<String> genNoModes(Context context){
+        ArrayList<String> toPractice = (ArrayList<String>) Arrays.asList(getTonicArray(context));
+        Collections.shuffle(toPractice);
+        return toPractice ;
+    }
 
     public ArrayList<String> genSingleMode(Context context, int numScales){
         //Takes in the context of the app from the class calling it
         //Then generates and returns the list in a random order
         ArrayList<String> toPractice = new ArrayList<>();
         int numCheck =0;
-        String[] holder = getTonicArray(context);
-        List<String> randHolder = Arrays.asList(holder);
+        List<String> randHolder = genNoModes(context);
         //needs one that is for if nScales <12
         while(numCheck <numScales) {
             Collections.shuffle(randHolder);
