@@ -37,15 +37,17 @@ public class ListGenerator {
     }
 
     public ArrayList<String> genMultiMode(Context context, ArrayList<String> modes, int numScales){
-        String[] holder = getTonicArray(context);
-        ArrayList<String> toPractice = new ArrayList<String>();
-        for(String a:holder){
-            for(String b:modes){
-                toPractice.add(a+" "+b);
+        ArrayList<String> holder = genSingleMode(context,numScales);
+        ArrayList<String> toPractice = new ArrayList<>();
+        int modeCheck=0;
+            for(int i = 0;i<holder.size();i++){
+                if(modeCheck==modes.size()){
+                    modeCheck=0;
+                }
+                toPractice.add(holder.get(i)+" "+modes.get(modeCheck));
+                modeCheck++;
             }
-        }
-        Collections.shuffle(toPractice);
-        return toPractice;
+            return toPractice;
     }
 }
 

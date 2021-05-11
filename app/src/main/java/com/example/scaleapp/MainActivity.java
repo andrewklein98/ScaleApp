@@ -15,11 +15,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
 
     Button metButton;
     Button modeButton;
-    Button endButton;
+    ToggleButton endButton;
     boolean useMetronome = false;
     boolean useEndless = false;
     int numScales;
@@ -47,6 +49,26 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         modeButton = (Button) findViewById(R.id.modeButton);
         //creates the button for endless mode
         endButton = findViewById(R.id.buttonEndless);
+        endButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    //endless is on and the text for number of scale is greyed out
+                    endButton.setText("On");
+                    scaleText.setText("unavailable in endless mode");
+                    scaleText.setEnabled(false);
+                    useEndless = true;
+                }
+                else{
+                    endButton.setText("Off");
+                    scaleText.setText("number of scales to practice");
+                    scaleText.setEnabled(true);
+                    useEndless=false;
+                    //endless is off, and the text for number of scales is not greyed out
+                }
+            }
+        });
+
     }
 
     //on click for the use metronome button
@@ -98,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         modeDialog.show(getSupportFragmentManager(),"Pick Mode");
     }
 
+    //this sets the modes to the selection from the dialog box
+    //this is done by using an interface from the dialog class
+    //tbh I don't quite understand how it it is done, I need to have a look at the logic
     @Override
     public void sendModes(ArrayList<String> sent) {
         modes = sent;

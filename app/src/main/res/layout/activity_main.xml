@@ -10,8 +10,8 @@
 
     <EditText
         android:id="@+id/nScales"
-        android:layout_width="238dp"
-        android:layout_height="47dp"
+        android:layout_width="271dp"
+        android:layout_height="82dp"
         android:layout_marginTop="48dp"
         android:hint="number of scales to practice"
         android:inputType="number"
@@ -22,7 +22,7 @@
         android:id="@+id/button"
         android:layout_width="186dp"
         android:layout_height="54dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:onClick="metronomeButton"
         android:text="Use Metronome"
         app:layout_constraintTop_toBottomOf="@+id/modeButton"
@@ -48,15 +48,14 @@
         app:layout_constraintTop_toBottomOf="@+id/nScales"
         tools:layout_editor_absoluteX="143dp" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/buttonEndless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="76dp"
         android:text="Endless Mode"
-        android:onClick="endlessMode"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:layout_editor_absoluteX="120dp" />
+        tools:layout_editor_absoluteX="161dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
