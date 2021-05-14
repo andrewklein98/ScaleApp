@@ -13,7 +13,8 @@ public class ListGenerator {
         return context.getResources().getStringArray(R.array.TonicArray);
     }
     public ArrayList<String> genNoModes(Context context){
-        ArrayList<String> toPractice = (ArrayList<String>) Arrays.asList(getTonicArray(context));
+        ArrayList<String> toPractice = new ArrayList<>();
+        toPractice.addAll(Arrays.asList(getTonicArray(context)));
         Collections.shuffle(toPractice);
         return toPractice ;
     }

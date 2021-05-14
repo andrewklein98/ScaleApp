@@ -18,13 +18,16 @@ public class ModeDialog  extends DialogFragment {
     ModeDialogInterface modeInterface;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        final String[] modes = getContext().getResources().getStringArray(R.array.mode_array);
+        //gets the mode list from the array in the resources
+        final String[] modeArrayResource = getContext().getResources().getStringArray(R.array.mode_array);
+        String[] modeArrayFull = populateFullModeArray(modeArrayResource);
         ArrayList<Integer> pickedModes = new ArrayList();
         ArrayList<String> modesPicked = new ArrayList();
+        //calls the dialog builder
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
         builder.setTitle("Pick Mode")
-                .setMultiChoiceItems(modes,null, new DialogInterface.OnMultiChoiceClickListener() {
+                .setMultiChoiceItems(modeArrayFull,null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int mode, boolean isChecked){
                         if(isChecked){
@@ -38,7 +41,7 @@ public class ModeDialog  extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         for (Integer pickedMode : pickedModes) {
-                            modesPicked.add(modes[pickedMode]);
+                            modesPicked.add(modeArrayFull[pickedMode]);
                         }
                         modeInterface.sendModes(modesPicked);
                     }
@@ -62,6 +65,18 @@ public class ModeDialog  extends DialogFragment {
 
     public interface ModeDialogInterface{
         void sendModes(ArrayList<String> sent);
+    }
+
+    public String[] populateFullModeArray(String[] modeArrayResource){
+        int modeArrayLength = modeArrayResource.length;
+        String[] modeArrayFull = new String[modeArrayLength+2];
+        for(int i = 0;i<modeArrayLength;i++){
+            modeArrayFull[i]=modeArrayResource[i];
+        }
+        int modeArrayFullLength = modeArrayFull.length;
+        modeArrayFull[modeArrayFullLength-2]="Use All Modes";
+        modeArrayFull[modeArrayFullLength-1]="Tonics Only";
+        return modeArrayFull;
     }
 
 
