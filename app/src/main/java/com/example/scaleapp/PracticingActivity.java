@@ -27,6 +27,7 @@ public class PracticingActivity extends AppCompatActivity {
 
     boolean metronome;
     boolean endless;
+    boolean noModes=false;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class PracticingActivity extends AppCompatActivity {
             metronome = bundle.getBoolean("metronomeOn");
             modes = bundle.getStringArrayList("modes");
             endless = bundle.getBoolean("endless");
+            numScales = bundle.getInt("numScales");
             //checks if the metronome is on
             if(metronome){
                 metBox.setText("Metronome On");
@@ -52,34 +54,41 @@ public class PracticingActivity extends AppCompatActivity {
             else {
                 metBox.setText("Metronome Off");
             }
+            if(modes==null){
+                noModes=true;
+            }
             //checks if endless mode is on, if so gets the numScales
             if(!endless) {
-                numScales = bundle.getInt("numScales");
-                scaleBox.setText(String.valueOf(numScales)  + " Scales Completed");
+                nonEndlessCreate();
             }else{
-                scaleBox.setText("0 scales completed");
+                endlessCreate(bundle);
             }
             //checks number of modes and endless, then gens the list
-            if(modes==null &&!endless){
-                tonics = listGen.genNoModes(getBaseContext());
-            }
-            else if(modes==null && endless){
-                tonics = listGen.genNoModes(getBaseContext());
-            }
-            else if(modes.size()==1 && !endless) {
-                tonics = listGen.genSingleMode(getBaseContext() ,numScales);
-            }
-            else if(!endless){
-                tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
-            }else{
-                tonics = listGen.genMultiMode(getBaseContext(),modes,24);
-                numScales=1;
-            }
+
 
         }
 
         tonicBox.setText(tonics.get(scaleIndex));
 
+    }
+    public void endlessCreate(Bundle bundle){
+
+        scaleBox.setText("0 scales completed");
+        if(noModes){
+            tonics =listGen.genNoModes(getBaseContext());
+        }else {
+            tonics = listGen.genMultiMode(getBaseContext(), modes, 24);
+        }
+        numScales=0;
+    }
+    public void nonEndlessCreate(){
+        scaleBox.setText(String.valueOf(numScales)  + " Scales Remaining");
+        if(noModes){
+            tonics = listGen.genNoModes(getBaseContext());
+        }
+        else{
+            tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+        }
     }
 
     public void nonEndlessClick(){
@@ -90,7 +99,7 @@ public class PracticingActivity extends AppCompatActivity {
         }else{
             //sets the text of the boxes to be the next scale
             tonicBox.setText(tonics.get(scaleIndex));
-            scaleBox.setText("Scales Remaining: "+ String.valueOf(numScales));
+            scaleBox.setText(String.valueOf(numScales)+" Scales Remaining");
         }
     }
 
@@ -103,7 +112,12 @@ public class PracticingActivity extends AppCompatActivity {
         tonicBox.setText(tonics.get(scaleIndex));
         //checks whether the index is too big for the array, and if so resets to get a new array list
         if(scaleIndex==tonics.size()-1){
-            tonics = listGen.genMultiMode(getBaseContext(),modes,24);
+            if(noModes){
+                tonics = listGen.genNoModes(getBaseContext());
+            }
+            else {
+                tonics = listGen.genMultiMode(getBaseContext(), modes, 24);
+            }
             scaleIndex=0;
         }
         lastScale = tonics.get(scaleIndex);

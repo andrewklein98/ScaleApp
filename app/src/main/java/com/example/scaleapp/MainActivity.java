@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         return modes;
     }
 
+
     public void openModeDialog(View view){
 
         ModeDialog modeDialog = new ModeDialog();
