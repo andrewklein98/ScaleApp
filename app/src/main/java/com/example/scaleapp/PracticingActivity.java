@@ -33,9 +33,6 @@ public class PracticingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practicing);
         listGen = new ListGenerator();
-
-        //gets the text box for the metronome field
-        EditText metBox = (EditText) findViewById(R.id.metronomeBox);
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
         scaleBox= (TextView) findViewById(R.id.numScaleText);
@@ -48,12 +45,6 @@ public class PracticingActivity extends AppCompatActivity {
             endless = bundle.getBoolean("endless");
             numScales = bundle.getInt("numScales");
             //checks if the metronome is on
-            if(metronome){
-                metBox.setText("Metronome On");
-            }
-            else {
-                metBox.setText("Metronome Off");
-            }
             if(modes==null){
                 noModes=true;
             }

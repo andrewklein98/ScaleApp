@@ -8,31 +8,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="1dp"
+        android:baselineAligned="true"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="259dp">
+        tools:layout_editor_absoluteY="24dp">
 
         <LinearLayout
             android:layout_width="1sp"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="1dp"
             android:layout_weight="1"
+            android:baselineAligned="true"
             android:gravity="center"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/metronomeBox"
-                style="@android:style/TextAppearance.Large"
-                android:layout_width="166dp"
-                android:layout_height="78dp"></EditText>
 
             <TextView
                 android:id="@+id/numScaleText"
                 style="@android:style/TextAppearance.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="" />
                 android:text="" />
 
             <TextView
@@ -40,7 +38,14 @@
                 style="@android:style/TextAppearance.Large"
                 android:layout_width="164dp"
                 android:layout_height="74dp"
+                android:gravity="center"
                 android:text="TextView" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="195dp"
+                app:srcCompat="@drawable/c_major_1" />
 
             <Button
                 android:id="@+id/nextScale"
@@ -49,10 +54,10 @@
                 android:layout_height="wrap_content"
                 android:onClick="clickNextScale"
                 android:text="Next Scale" />
+
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
