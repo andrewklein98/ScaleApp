@@ -21,7 +21,7 @@ public class ModeDialog  extends DialogFragment {
         //gets the mode list from the array in the resources
         final String[] modeArrayResource = getContext().getResources().getStringArray(R.array.mode_array);
         //adds the options for al modes, or tonics only in the array
-        String[] modeArrayFull = populateFullModeArray(modeArrayResource);
+        String[] modeArrayFull = modeArrayResource;
         //the modes picked by the dialogue box
         ArrayList<Integer> pickedModes = new ArrayList();
         //the modes that will be sent to the main activity and then to the practicing activity
@@ -43,22 +43,29 @@ public class ModeDialog  extends DialogFragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        for (Integer pickedMode : pickedModes) {
-                            modesToSend.add(modeArrayFull[pickedMode]);
+                        if (pickedModes.size() == 0) {
+
+                        } else {
+                            for (Integer pickedMode : pickedModes) {
+                                modesToSend.add(modeArrayFull[pickedMode]);
+                            }
+                            modeInterface.sendModes(modesToSend);
                         }
-                        modeInterface.sendModes(modesToSend);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no_modes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //
+
                     }
                 })
                 .setNeutralButton("All modes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        for(String modes :modeArrayFull){
+                            modesToSend.add(modes);
+                        }
+                        modeInterface.sendModes(modesToSend);
                     }
                 });
 
@@ -77,17 +84,7 @@ public class ModeDialog  extends DialogFragment {
         void sendModes(ArrayList<String> sent);
     }
 
-    public String[] populateFullModeArray(String[] modeArrayResource){
-        int modeArrayLength = modeArrayResource.length;
-        String[] modeArrayFull = new String[modeArrayLength+2];
-        for(int i = 0;i<modeArrayLength;i++){
-            modeArrayFull[i]=modeArrayResource[i];
-        }
-        int modeArrayFullLength = modeArrayFull.length;
-        modeArrayFull[modeArrayFullLength-2]="Use All Modes";
-        modeArrayFull[modeArrayFullLength-1]="Tonics Only";
-        return modeArrayFull;
-    }
+
 
 
 }

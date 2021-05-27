@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
                     endButton.setText("On");
                     scaleText.setHint("unavailable in endless mode");
                     scaleText.setEnabled(false);
+                    scaleText.setText("");
                     useEndless = true;
                 }
                 else{
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         }
     }
     public ArrayList<String> getModes(){
-        //currently just gets the modes from a list, not the box
         return modes;
     }
 
