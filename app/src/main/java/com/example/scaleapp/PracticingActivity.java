@@ -55,7 +55,7 @@ public class PracticingActivity extends AppCompatActivity {
             //checks if endless mode is on, if so gets the numScales
             if(!endless) {
                 numScales = bundle.getInt("numScales");
-                scaleBox.setText(String.valueOf(numScales));
+                scaleBox.setText(String.valueOf(numScales)  + " Scales Completed");
             }else{
                 scaleBox.setText("0 scales completed");
             }
@@ -107,8 +107,9 @@ public class PracticingActivity extends AppCompatActivity {
             scaleIndex=0;
         }
         lastScale = tonics.get(scaleIndex);
-        scaleBox.setText(numScales+" scales completed");
         numScales++;
+        scaleBox.setText(numScales+" scales completed");
+
     }
 
 

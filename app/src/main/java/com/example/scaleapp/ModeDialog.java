@@ -20,9 +20,12 @@ public class ModeDialog  extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         //gets the mode list from the array in the resources
         final String[] modeArrayResource = getContext().getResources().getStringArray(R.array.mode_array);
+        //adds the options for al modes, or tonics only in the array
         String[] modeArrayFull = populateFullModeArray(modeArrayResource);
+        //the modes picked by the dialogue box
         ArrayList<Integer> pickedModes = new ArrayList();
-        ArrayList<String> modesPicked = new ArrayList();
+        //the modes that will be sent to the main activity and then to the practicing activity
+        ArrayList<String> modesToSend = new ArrayList();
         //calls the dialog builder
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
@@ -41,9 +44,9 @@ public class ModeDialog  extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         for (Integer pickedMode : pickedModes) {
-                            modesPicked.add(modeArrayFull[pickedMode]);
+                            modesToSend.add(modeArrayFull[pickedMode]);
                         }
-                        modeInterface.sendModes(modesPicked);
+                        modeInterface.sendModes(modesToSend);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -51,7 +54,14 @@ public class ModeDialog  extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //
                     }
+                })
+                .setNeutralButton("All modes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
                 });
+
 
         return builder.create();
     }

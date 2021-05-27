@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         //opens the practice activity as an intent
         //first checks if the modes have been entered
         numScales =getNumScalesFromBox();
-        modes = getModesFromBox();
+        modes = getModes();
         Intent intent = new Intent(this, PracticingActivity.class);
         intent.putExtra("metronomeOn", useMetronome);
         intent.putExtra("numScales", numScales);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
              return Integer.parseInt(scaleText.getText().toString());
         }
     }
-    public ArrayList<String> getModesFromBox(){
+    public ArrayList<String> getModes(){
         //currently just gets the modes from a list, not the box
         return modes;
     }
@@ -128,4 +128,5 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     public void sendModes(ArrayList<String> sent) {
         modes = sent;
     }
+
 }
