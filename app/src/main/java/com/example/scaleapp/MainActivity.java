@@ -1,26 +1,41 @@
 package com.example.scaleapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDialogInterface {
 
     Button metButton;
+    Button modeButton;
+    ToggleButton endButton;
     boolean useMetronome = false;
+    boolean useEndless = false;
     int numScales;
-    EditText trueFalseText;
     EditText scaleText;
+    public static final int REQUEST_CODE =1;
+    ArrayList<String> modes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +43,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //gets the Edit Text for the number of scales
         scaleText = (EditText) findViewById(R.id.nScales);
-        //sets up the dropdown(spinner) with the values from the mode array
-        Spinner spin = (Spinner) findViewById(R.id.modespinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.mode_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
         //gets the button for the metronome on off
         metButton = (Button) findViewById(R.id.button);
-        //sets a text watcher on the number of scales
-        scaleText.addTextChangedListener(filterTextWatcher);
+        //creates the button to pick modes
+        modeButton = (Button) findViewById(R.id.modeButton);
+        //creates the button for endless mode
+        endButton = findViewById(R.id.buttonEndless);
+        endButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    //endless is on and the text for number of scale is greyed out
+                    endButton.setText("On");
+                    scaleText.setHint("unavailable in endless mode");
+                    scaleText.setEnabled(false);
+                    scaleText.setText("");
+                    useEndless = true;
+                }
+                else{
+                    endButton.setText("Off");
+                    scaleText.setHint("number of scales to practice");
+                    scaleText.setEnabled(true);
+                    useEndless=false;
+                    //endless is off, and the text for number of scales is not greyed out
+                }
+            }
+        });
+
     }
 
     //on click for the use metronome button
@@ -59,28 +91,43 @@ public class MainActivity extends AppCompatActivity {
     //the on click for the start practice button
     public void startPractice(View view) {
         //opens the practice activity as an intent
+        //first checks if the modes have been entered
+        numScales =getNumScalesFromBox();
+        modes = getModes();
         Intent intent = new Intent(this, PracticingActivity.class);
         intent.putExtra("metronomeOn", useMetronome);
         intent.putExtra("numScales", numScales);
-
+        intent.putExtra("modes",modes);
+        intent.putExtra("endless",useEndless);
         startActivity(intent);
     }
 
-    private TextWatcher filterTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    public int getNumScalesFromBox() {
+        if (scaleText.getText().toString().equals("")) {
+            //something that will stop the user from breaking everything
+            //that will have to be in the startPractice box
+            return 12;
+        } else {
+             return Integer.parseInt(scaleText.getText().toString());
         }
+    }
+    public ArrayList<String> getModes(){
+        return modes;
+    }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            numScales = Integer.parseInt(scaleText.getText().toString());
-        }
 
-        @Override
-        public void afterTextChanged(Editable s) {
+    public void openModeDialog(View view){
 
-        }
-    };
+        ModeDialog modeDialog = new ModeDialog();
+        modeDialog.show(getSupportFragmentManager(),"Pick Mode");
+    }
+
+    //this sets the modes to the selection from the dialog box
+    //this is done by using an interface from the dialog class
+    //tbh I don't quite understand how it it is done, I need to have a look at the logic
+    @Override
+    public void sendModes(ArrayList<String> sent) {
+        modes = sent;
+    }
 
 }

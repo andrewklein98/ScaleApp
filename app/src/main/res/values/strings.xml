@@ -2,4 +2,8 @@
     <string name="app_name">ScaleApp</string>
     <string name="metronomeOn">metronome on</string>
     <string name="metronomeOff">metronome off</string>
+    <string name="mode_list">Mode list</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">cancel</string>
+    <string name="no_modes">No Modes</string>
 </resources>
