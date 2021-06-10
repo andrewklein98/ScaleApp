@@ -42,10 +42,9 @@
                 android:text="TextView" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/scaleImage"
                 android:layout_width="wrap_content"
-                android:layout_height="195dp"
-                app:srcCompat="@drawable/c_major_1" />
+                android:layout_height="195dp" />
 
             <Button
                 android:id="@+id/nextScale"

@@ -1,21 +1,21 @@
 package com.example.scaleapp;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
 public class PracticingActivity extends AppCompatActivity {
 
     TextView scaleBox;
     TextView tonicBox;
+    ImageView modeImage;
 
     ListGenerator listGen;
+    ImageGeneration imgGen;
 
     ArrayList<String> tonics;
     ArrayList<String> modes;
@@ -28,11 +28,15 @@ public class PracticingActivity extends AppCompatActivity {
     boolean metronome;
     boolean endless;
     boolean noModes=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practicing);
         listGen = new ListGenerator();
+        imgGen = new ImageGeneration();
+        modeImage = findViewById(R.id.scaleImage);
+        modeImage.setImageDrawable(imgGen.combineImages(getBaseContext()));
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
         scaleBox= (TextView) findViewById(R.id.numScaleText);
@@ -54,11 +58,7 @@ public class PracticingActivity extends AppCompatActivity {
             }else{
                 endlessCreate(bundle);
             }
-            //checks number of modes and endless, then gens the list
-
-
         }
-
         tonicBox.setText(tonics.get(scaleIndex));
 
     }
