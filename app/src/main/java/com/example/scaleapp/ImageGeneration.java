@@ -3,6 +3,7 @@ package com.example.scaleapp;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -32,7 +33,8 @@ public class ImageGeneration {
         //as such the creation is with the clef image, and then the notes are mapped over it
         Canvas canvas = new Canvas(clef);
         canvas.drawBitmap(note,getPosition("tonic","mode",8),null);
-        canvas.drawBitmap(note,1400,600,null);
+        canvas.drawBitmap(note,1800,600,null);
+        canvas.drawBitmap(note,1400,100,null);
         //returns the bitmap as a BitmapDrawable which can be used in a view image
         BitmapDrawable mBitmapDrawable = new BitmapDrawable(context.getResources(), clef);
         return mBitmapDrawable;
@@ -46,4 +48,13 @@ public class ImageGeneration {
         position.setTranslate(800,775);
         return position;
     }
+
+    public BitmapDrawable genKeySignatureBitMap(String tonic, String mode){
+        // TODO: 21/06/2021 this should take in the tonic and mode, and then return the relevant key signature
+        BitmapDrawable keySignature;
+
+
+    }
+
+
 }

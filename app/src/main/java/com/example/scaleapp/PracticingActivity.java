@@ -34,9 +34,9 @@ public class PracticingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practicing);
         listGen = new ListGenerator();
-        imgGen = new ImageGeneration();
+        imgGen = new ImageGeneration(getBaseContext());
         modeImage = findViewById(R.id.scaleImage);
-        modeImage.setImageDrawable(imgGen.combineImages(getBaseContext()));
+        modeImage.setImageDrawable(imgGen.combineImages());
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
         scaleBox= (TextView) findViewById(R.id.numScaleText);

@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,8 +35,10 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     boolean useEndless = false;
     int numScales;
     EditText scaleText;
-    public static final int REQUEST_CODE =1;
     ArrayList<String> modes;
+    // TODO: 22/06/2021 follow this website on how to make a database for the modes and tonics
+    // Might be a bit overboard, could do it with a big if else stack, but I think this will be better learning
+    SQLiteOpenHelper sqLiteOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
