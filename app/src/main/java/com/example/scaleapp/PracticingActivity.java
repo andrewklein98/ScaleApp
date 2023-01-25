@@ -23,7 +23,7 @@ public class PracticingActivity extends AppCompatActivity {
     String lastScale;
 
     int numScales;
-    int scaleIndex =0;
+    int scaleIndex = 0;
 
     boolean metronome;
     boolean endless;
@@ -39,7 +39,7 @@ public class PracticingActivity extends AppCompatActivity {
         modeImage.setImageDrawable(imgGen.combineImages());
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
-        scaleBox= (TextView) findViewById(R.id.numScaleText);
+        scaleBox = (TextView) findViewById(R.id.numScaleText);
         //gets the values that we passed into the activity when it was created
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
@@ -49,29 +49,30 @@ public class PracticingActivity extends AppCompatActivity {
             endless = bundle.getBoolean("endless");
             numScales = bundle.getInt("numScales");
             //checks if the metronome is on
-            if(modes==null){
+            if (modes==null){
                 noModes=true;
             }
             //checks if endless mode is on, if so gets the numScales
-            if(!endless) {
+            if (!endless) {
                 nonEndlessCreate();
-            }else{
+            } else {
                 endlessCreate(bundle);
             }
         }
         tonicBox.setText(tonics.get(scaleIndex));
-
     }
+
     public void endlessCreate(Bundle bundle){
 
         scaleBox.setText("0 scales completed");
         if(noModes){
             tonics =listGen.genNoModes(getBaseContext());
-        }else {
+        } else {
             tonics = listGen.genMultiMode(getBaseContext(), modes, 24);
         }
         numScales=0;
     }
+
     public void nonEndlessCreate(){
         scaleBox.setText(String.valueOf(numScales)  + " Scales Remaining");
         if(noModes){

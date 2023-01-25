@@ -36,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     int numScales;
     EditText scaleText;
     ArrayList<String> modes;
-    // TODO: 22/06/2021 follow this website on how to make a database for the modes and tonics
-    // Might be a bit overboard, could do it with a big if else stack, but I think this will be better learning
-    SQLiteOpenHelper sqLiteOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         } else if (useMetronome == false) {
             useMetronome = true;
             metButton.setText("Don't use metronome");
-
         }
     }
 

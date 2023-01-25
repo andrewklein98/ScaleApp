@@ -49,12 +49,12 @@ public class ImageGeneration {
         return position;
     }
 
-    public BitmapDrawable genKeySignatureBitMap(String tonic, String mode){
+    //public BitmapDrawable genKeySignatureBitMap(String tonic, String mode){
         // TODO: 21/06/2021 this should take in the tonic and mode, and then return the relevant key signature
-        BitmapDrawable keySignature;
+      //  BitmapDrawable keySignature;
 
 
-    }
+    //  }
 
 
 }
