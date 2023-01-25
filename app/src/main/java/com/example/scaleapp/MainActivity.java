@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
     boolean useEndless = false;
     int numScales;
     EditText scaleText;
-    public static final int REQUEST_CODE =1;
     ArrayList<String> modes;
 
     @Override
@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
         } else if (useMetronome == false) {
             useMetronome = true;
             metButton.setText("Don't use metronome");
-
         }
     }
 
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
              return Integer.parseInt(scaleText.getText().toString());
         }
     }
+
     public ArrayList<String> getModes(){
         return modes;
     }
@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements ModeDialog.ModeDi
 
     //this sets the modes to the selection from the dialog box
     //this is done by using an interface from the dialog class
-    //tbh I don't quite understand how it it is done, I need to have a look at the logic
     @Override
     public void sendModes(ArrayList<String> sent) {
         modes = sent;

@@ -1,7 +1,6 @@
 package com.example.scaleapp;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
