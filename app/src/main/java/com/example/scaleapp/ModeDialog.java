@@ -22,8 +22,6 @@ public class ModeDialog  extends DialogFragment {
         final String[] modeArrayResource = getContext().getResources().getStringArray(R.array.mode_array);
         //adds the options for al modes, or tonics only in the array
         String[] modeArrayFull = modeArrayResource;
-        //the modes picked by the dialogue box
-        ArrayList<Integer> pickedModes = new ArrayList();
         //the modes that will be sent to the main activity and then to the practicing activity
         ArrayList<String> modesToSend = new ArrayList();
         //calls the dialog builder
@@ -33,22 +31,21 @@ public class ModeDialog  extends DialogFragment {
                 .setMultiChoiceItems(modeArrayFull,null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int mode, boolean isChecked){
-                        if(isChecked){
-                            pickedModes.add(mode);
-                        }else if(pickedModes.contains(mode)){
-                            pickedModes.remove(mode);
+                        //bug here taking the mode position and index, not the right way round
+                        if(isChecked) {
+                            modesToSend.add(modeArrayFull[mode]);
+                        }
+                        if(!isChecked){
+                            modesToSend.remove(modeArrayFull[mode]);
                         }
                     }
                 })
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        if (pickedModes.size() == 0) {
+                        if (modesToSend.size() == 0) {
 
                         } else {
-                            for (Integer pickedMode : pickedModes) {
-                                modesToSend.add(modeArrayFull[pickedMode]);
-                            }
                             modeInterface.sendModes(modesToSend);
                         }
                     }
