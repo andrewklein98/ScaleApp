@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="GMajor">
+        <item>FSharp</item>
+    </string-array>
+    <integer-array name="FSharp">
+        <item name="x">1000</item>
+        <item name ="y">700</item>
+    </integer-array>
+
+
+
+
+
+</resources>
