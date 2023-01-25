@@ -6,7 +6,8 @@ import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class ImageGeneration {
    private Bitmap keySignature;
@@ -29,73 +30,53 @@ public class ImageGeneration {
 
     public Bitmap getKeySignature(String tonic,String mode){
         Bitmap keySignature;
-       switch(mode){
-           case "Lydian":
-               keySignature = null;
-               break;
-           case "Major":
-               keySignature= getMajorKeySignature(tonic);
-               break;
-           case "Mixolydian":
-               keySignature = null;
-               break;
-           case "Dorian":
-               keySignature = null;
-               break;
-           case "Minor":
-               keySignature = null;
-               break;
-           case "Phrygian":
-               keySignature = null;
-               break;
-           case "Locrian":
-               keySignature = null;
-               break;
-               default:
-           keySignature = null;
-       }
-
+        int tonicMode = CalculateTonicModeIndex(tonic,mode);
+        keySignature= ConvertTonicModeIndexToKeySignature(tonicMode);
        //all tonics must be capitalised
         return keySignature;
     }
 
-    public Bitmap getMajorKeySignature(String tonic){
+    public Bitmap ConvertTonicModeIndexToKeySignature(int tonicMode){
+       //this takes in the tonicMode index, which will correlate to the tonic's position round the circle of fifths, adjusted for the mode
         Bitmap keySignature;
-        switch (tonic){
-            case "C":
+        //+1 compensates for the array index
+        switch (tonicMode){
+            case 0:
+                keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.fmajor);
+            case 1:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.cmajor);
                 break;
-            case "G":
+            case 2:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.gmajor);
                 break;
-            case "D":
+            case 3:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.dmajor);
                 break;
-            case "A":
+            case 4:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.amajor);
                 break;
-            case "E":
+            case 5:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.emajor);
                 break;
-            case "B":
+            case 6:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.bmajor);
                 break;
-            case "F#":
+            case 7:
                 keySignature =BitmapFactory.decodeResource(context.getResources(),R.drawable.fsharpmajor);
                 break;
-            case "Db":
+            case 8:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.dflatmajor);
                 break;
-            case "Ab":
+            case 9:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.aflatmajor);
                 break;
-            case "Eb":
+            case 10:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.eflatmajor);
                 break;
-            case "Bb":
+            case 11:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.bflatmajor);
                 break;
-            case "F":
+            case 12:
                 keySignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.fmajor);
                 break;
             default:
@@ -105,17 +86,24 @@ public class ImageGeneration {
         return keySignature;
     }
 
-    public Bitmap getLydianKeySignature() {
-        int[] tonicIndex = new int[12];
-        int[] modeIndex = new int[8];
-        String tonic  = "C";
-        //we want a return of the key signature based on the tonic and the mode
-        //arbitrarily lets start with the tonic, ie Clydian
-        //lydian will have position 0 in the mode index,
-        //C has position 1 in the tonic index
-        //search through tonic array to find the index of the tonic
-        //a given mode will shift the keysignature by a certain ammount, eg
-        //Mixolydian will shift backwards 1 , eg C major adds 1 flat
+    public int CalculateTonicModeIndex(String tonic,String mode) {
+        //get tonic index in array
+        //then get mode, mode will shift it through the tonic array key signatures, keeping major as the default
+        //shifts through the list of key signatures, treating C as 0 and lydian as 0
+        //keys and modes are arranged in the cycle of fifths
+        int tonicModeIndex;
+        int tonicIndex ;
+        int modeIndex;
+        String[] tonicArray= context.getResources().getStringArray(R.array.TonicArray);
+        String[]modeArray = context.getResources().getStringArray(R.array.mode_array);
+        tonicIndex =Arrays.asList(tonicArray).indexOf(tonic);
+        modeIndex =Arrays.asList(modeArray).indexOf(mode);
+        if(modeIndex-tonicIndex<=1){
+            tonicModeIndex = tonicIndex - modeIndex +2;
+        }else{
+            tonicModeIndex = 11 - modeIndex +tonicIndex;
+        }
 
+        return tonicModeIndex;
     }
 }

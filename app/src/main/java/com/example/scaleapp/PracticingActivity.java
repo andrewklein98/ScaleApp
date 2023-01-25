@@ -17,13 +17,13 @@ public class PracticingActivity extends AppCompatActivity {
     ListGenerator listGen;
     ImageGeneration imgGen;
 
-    ArrayList<String> tonics;
+    ArrayList<String[]> scales;
     ArrayList<String> modes;
 
     String lastScale;
 
     int numScales;
-    int scaleIndex = 0;
+    int tonicIndex = 0;
 
     boolean metronome;
     boolean endless;
@@ -59,18 +59,18 @@ public class PracticingActivity extends AppCompatActivity {
                 endlessCreate(bundle);
             }
         }
-        tonicBox.setText(tonics.get(scaleIndex));
+        tonicBox.setText(scales.get(tonicIndex)[0]+" "+scales.get(tonicIndex)[1]);
         //sets the key signature based on the scale and tonality
-        modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
+        modeImage.setImageDrawable(imgGen.combineImages(scales.get(tonicIndex)[0],scales.get(tonicIndex)[1]));
     }
 
     public void endlessCreate(Bundle bundle){
 
         scaleBox.setText("0 scales completed");
         if(noModes){
-            tonics =listGen.genNoModes(getBaseContext());
+            scales =listGen.genNoModes(getBaseContext());
         } else {
-            tonics = listGen.genMultiMode(getBaseContext(), modes, 24);
+            scales = listGen.genMultiMode(getBaseContext(), modes, 24);
         }
         numScales=0;
     }
@@ -78,10 +78,10 @@ public class PracticingActivity extends AppCompatActivity {
     public void nonEndlessCreate(){
         scaleBox.setText(String.valueOf(numScales)  + " Scales Remaining");
         if(noModes){
-            tonics = listGen.genNoModes(getBaseContext());
+            scales = listGen.genNoModes(getBaseContext());
         }
         else{
-            tonics = listGen.genMultiMode(getBaseContext(),modes ,numScales);
+            scales = listGen.genMultiMode(getBaseContext(),modes ,numScales);
         }
     }
 
@@ -92,43 +92,43 @@ public class PracticingActivity extends AppCompatActivity {
             finish();
         }else{
             //checks if the index is too high for the tonic array
-            if(scaleIndex>=12){
-                scaleIndex = 0;
+            if(tonicIndex >=12){
+                tonicIndex = 0;
             }
             //sets the text of the boxes to be the next scale
-            tonicBox.setText(tonics.get(scaleIndex));
+            tonicBox.setText(getScale(scales.get(tonicIndex)));
             scaleBox.setText(String.valueOf(numScales)+" Scales Remaining");
-            modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
+            modeImage.setImageDrawable(imgGen.combineImages(scales.get(tonicIndex)[0],scales.get(tonicIndex)[1]));
         }
     }
 
     public void endlessClick(){
         //duplicate check
-        if(tonics.get(scaleIndex).equals(lastScale)){
-            scaleIndex++;
+        if(scales.get(tonicIndex).equals(lastScale)){
+            tonicIndex++;
         }
         //sets the tonics box to be the text of the scale
-        tonicBox.setText(tonics.get(scaleIndex));
+        tonicBox.setText(getScale(scales.get(tonicIndex)));;
         //checks whether the index is too big for the array, and if so resets to get a new array list
-        if(scaleIndex==tonics.size()-1){
+        if(tonicIndex == scales.size()-1){
             if(noModes){
-                tonics = listGen.genNoModes(getBaseContext());
+                scales = listGen.genNoModes(getBaseContext());
             }
             else {
-                tonics = listGen.genMultiMode(getBaseContext(), modes, 24);
+                scales = listGen.genMultiMode(getBaseContext(), modes, 24);
             }
-            scaleIndex=0;
+            tonicIndex =0;
         }
-        lastScale = tonics.get(scaleIndex);
+        lastScale = scales.get(tonicIndex)[0];
         numScales++;
         scaleBox.setText(numScales+" scales completed");
-        modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
+        modeImage.setImageDrawable(imgGen.combineImages(scales.get(tonicIndex)[0],scales.get(tonicIndex)[1]));
 
     }
 
 
     public void clickNextScale(View view){
-        scaleIndex+=1;
+        tonicIndex +=1;
         if(!endless){
             nonEndlessClick();
         }else{
@@ -136,5 +136,8 @@ public class PracticingActivity extends AppCompatActivity {
         }
     }
 
+    private String getScale(String[] scales){
+        return scales[0]+" "+scales[1];
+    }
 
 }

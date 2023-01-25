@@ -11,9 +11,16 @@ public class ListGenerator {
     public String[] getTonicArray(Context context){
         return context.getResources().getStringArray(R.array.TonicArray);
     }
-    public ArrayList<String> genNoModes(Context context){
-        ArrayList<String> toPractice = new ArrayList<>();
-        toPractice.addAll(Arrays.asList(getTonicArray(context)));
+    public ArrayList<String[]> genNoModes(Context context){
+        //generates a shuffled arraylist of tonics
+        //has an empty second array slot for consistency with the genMultiModesMethod
+        ArrayList<String[]> toPractice = new ArrayList<>();
+        ArrayList<String> tonicsHolder = new ArrayList<>();
+        tonicsHolder.addAll(Arrays.asList(getTonicArray(context)));
+        for(String tonic : tonicsHolder){
+            String[] tonicAndMode = new String[]{tonic,null};
+            toPractice.add(tonicAndMode);
+        }
         Collections.shuffle(toPractice);
         return toPractice ;
     }
@@ -23,7 +30,7 @@ public class ListGenerator {
         //Then generates and returns the list in a random order
         ArrayList<String> toPractice = new ArrayList<>();
         int numCheck =0;
-        List<String> randHolder = genNoModes(context);
+        List<String> randHolder = Arrays.asList(getTonicArray(context));
         //needs one that is for if nScales <12
         while(numCheck <numScales) {
             Collections.shuffle(randHolder);
@@ -40,15 +47,17 @@ public class ListGenerator {
         return toPractice;
     }
 
-    public ArrayList<String> genMultiMode(Context context, ArrayList<String> modes, int numScales){
+    public ArrayList<String[]> genMultiMode(Context context, ArrayList<String> modes, int numScales){
+        //returns an arralyist of arrays, with the tonic in position 0, and mode in position 1
         ArrayList<String> holder = genSingleMode(context,numScales);
-        ArrayList<String> toPractice = new ArrayList<>();
+        ArrayList<String[]> toPractice = new ArrayList<>();
         int modeCheck=0;
             for(int i = 0;i<holder.size();i++){
                 if(modeCheck==modes.size()){
                     modeCheck=0;
                 }
-                toPractice.add(holder.get(i)+" "+modes.get(modeCheck));
+                String[] tonicModeArray = {holder.get(i),modes.get(modeCheck)};
+                toPractice.add( tonicModeArray);
                 modeCheck++;
             }
             return toPractice;
