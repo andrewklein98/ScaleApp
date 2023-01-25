@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="mode_array">
-        <item>Major</item>
-        <item>Minor</item>
         <item>Lydian</item>
+        <item>Major</item>
         <item>Mixolydian</item>
         <item>Dorian</item>
+        <item>Minor</item>
         <item>Phrygian</item>
         <item>Locrian</item>
     </string-array>

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- the order of these is important, do not change!-->
 <resources>
     <string-array name ="TonicArray">
-        <item>A</item>
-        <item>Bb</item>
-        <item>B</item>
         <item>C</item>
-        <item>C#</item>
-        <item>D</item>
-        <item>Eb</item>
-        <item>E</item>
-        <item>F</item>
-        <item>F#</item>
         <item>G</item>
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>B</item>
+        <item>F#</item>
+        <item>Db</item>
         <item>Ab</item>
+        <item>Eb</item>
+        <item>Bb</item>
+        <item>F</item>
     </string-array>
 
 </resources>
