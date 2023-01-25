@@ -3,9 +3,17 @@
     <string-array name="GMajor">
         <item>FSharp</item>
     </string-array>
+    <string-array name="DMajor">
+        <item>FSharp</item>
+        <item>CSharp</item>
+    </string-array>
     <integer-array name="FSharp">
-        <item name="x">1000</item>
-        <item name ="y">700</item>
+        <item>1000</item>
+        <item>700</item>
+    </integer-array>
+    <integer-array name="CSharp">
+        <item>500</item>
+        <item>400</item>
     </integer-array>
 
 
