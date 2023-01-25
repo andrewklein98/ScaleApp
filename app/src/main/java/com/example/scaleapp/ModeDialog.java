@@ -56,7 +56,8 @@ public class ModeDialog  extends DialogFragment {
                 .setNegativeButton(R.string.no_modes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        modesToSend.clear();
+                        modeInterface.sendModes(modesToSend);
                     }
                 })
                 .setNeutralButton("All modes", new DialogInterface.OnClickListener() {

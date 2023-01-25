@@ -44,12 +44,13 @@ public class PracticingActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             //gets all the values passed in from the previous activity
+            //checks if the metronome is on
             metronome = bundle.getBoolean("metronomeOn");
             modes = bundle.getStringArrayList("modes");
             endless = bundle.getBoolean("endless");
             numScales = bundle.getInt("numScales");
-            //checks if the metronome is on
-            if (modes==null){
+
+            if (modes==null || modes.size()<=0 ){
                 noModes=true;
             }
             //checks if endless mode is on, if so gets the numScales
@@ -89,6 +90,10 @@ public class PracticingActivity extends AppCompatActivity {
         if(numScales==0){
             finish();
         }else{
+            //checks if the index is too high for the tonic array
+            if(scaleIndex>=12){
+                scaleIndex = 0;
+            }
             //sets the text of the boxes to be the next scale
             tonicBox.setText(tonics.get(scaleIndex));
             scaleBox.setText(String.valueOf(numScales)+" Scales Remaining");
