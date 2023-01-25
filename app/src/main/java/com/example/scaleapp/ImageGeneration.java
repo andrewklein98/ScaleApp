@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageGeneration {
-   private Bitmap note ,clef,sharp,flat,keySignature;
+   private Bitmap keySignature;
    private final int dpiScale;
    private final Context context;
 
@@ -26,48 +26,73 @@ public class ImageGeneration {
    }
 
 
-    public BitmapDrawable combineImages(){
-        //this allows the option for the bitmap being mutable
-        BitmapFactory.Options opt = new BitmapFactory.Options();
-        opt.inMutable=true;
-        //creates the bitmap for the combination
-        note = BitmapFactory.decodeResource(context.getResources(),R.drawable.crotchet_resize,opt);
-        clef = BitmapFactory.decodeResource(context.getResources(),R.drawable.treble_cleft_stave,opt);
-        sharp = BitmapFactory.decodeResource(context.getResources(),R.drawable.sharp,opt);
-
-        keySignature = getKeySignature("B","Major");
-/*        canvas.drawBitmap(sharp,150,300,null);
-        canvas.drawBitmap(note,1800,600,null);
-        canvas.drawBitmap(note,1400,100,null);*/
+    public BitmapDrawable combineImages(String tonic, String mode){
+        keySignature = getKeySignature(tonic,mode);
         //returns the bitmap as a BitmapDrawable which can be used in a view image
         BitmapDrawable mBitmapDrawable = new BitmapDrawable(context.getResources(), keySignature);
         return mBitmapDrawable;
     }
 
     public Bitmap getKeySignature(String tonic,String mode){
+       switch(mode){
+           case "Lydian":
+               break;
+           case "Major":
+               getMajorKeySignature(tonic);
+               break;
+           case "Mixolydian":
+               break;
+           case "Dorian":
+               break;
+           case "Minor":
+               break;
+           case "Phrygian":
+               break;
+           case "Locrian":
+               break;
+       }
        Bitmap keysignature;
-       //all tonics and the first letters of modes must be capitalised
-        switch (tonic+mode){
-            case "GMajor":
+       //all tonics and the first letters of modes must be capitalised        return keysignature;
+    }
+
+    public Bitmap getMajorKeySignature(String tonic){
+        Bitmap keysignature;
+        switch (tonic){
+            case "C":
+                break;
+            case "G":
                 keysignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.gmajor);
                 break;
-            case "DMajor":
+            case "D":
                 keysignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.dmajor);
-            case "AMajor":
+                break;
+            case "A":
                 keysignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.amajor);
                 break;
-            case "EMajor":
+            case "E":
                 keysignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.emajor);
                 break;
-            case "BMajor":
+            case "B":
                 keysignature = BitmapFactory.decodeResource(context.getResources(),R.drawable.bmajor);
+                break;
+            case "FSharp":
+                keysignature =BitmapFactory.decodeResource(context.getResources(),R.drawable.fsharpmajor);
+            case "DFlat":
+                break;
+            case "AFlat":
+                break;
+            case "EFlat":
+                break;
+            case "BFlat":
+                break;
+            case "F":
                 break;
             default:
                 keysignature = null;
+                break;
         }
-        return keysignature;
-    }
 
+    }
 
 
 }

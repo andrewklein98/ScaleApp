@@ -36,7 +36,6 @@ public class PracticingActivity extends AppCompatActivity {
         listGen = new ListGenerator();
         imgGen = new ImageGeneration(getBaseContext());
         modeImage = findViewById(R.id.scaleImage);
-        modeImage.setImageDrawable(imgGen.combineImages());
         tonicBox = (TextView) findViewById(R.id.tonicBox);
         //gets the text boc for the number of scales
         scaleBox = (TextView) findViewById(R.id.numScaleText);
@@ -61,6 +60,8 @@ public class PracticingActivity extends AppCompatActivity {
             }
         }
         tonicBox.setText(tonics.get(scaleIndex));
+        //sets the key signature based on the scale and tonality
+        modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
     }
 
     public void endlessCreate(Bundle bundle){
@@ -97,6 +98,7 @@ public class PracticingActivity extends AppCompatActivity {
             //sets the text of the boxes to be the next scale
             tonicBox.setText(tonics.get(scaleIndex));
             scaleBox.setText(String.valueOf(numScales)+" Scales Remaining");
+            modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
         }
     }
 
@@ -120,6 +122,7 @@ public class PracticingActivity extends AppCompatActivity {
         lastScale = tonics.get(scaleIndex);
         numScales++;
         scaleBox.setText(numScales+" scales completed");
+        modeImage.setImageDrawable(imgGen.combineImages(tonics.get(scaleIndex),"Major"));
 
     }
 
